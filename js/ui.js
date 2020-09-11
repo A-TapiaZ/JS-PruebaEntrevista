@@ -1,8 +1,4 @@
 
-const objeto = new Results();
-
-
-
 class Interfaz{
 
   mostrarMensaje(mensaje,clases){
@@ -32,27 +28,23 @@ class Interfaz{
       }
         
       const {title,planets,characters,starships}=data;
-      console.log(data);
       
       const resultDiv=document.querySelector('#resultado');
       
       
-      /**NOMBRE PELICULAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */
+      /**NOMBRE PELICULA */
         resultDiv.innerHTML+= `<h1> NOMBRE PELICULA: ${title} </h1><br>`
 
 
-      /*********************PLANETASSSSSSSSSSSSSSSSSSSSSSS */
+      /*********************PLANETAS */
       const promises = planets.map( async (planet) => {
         const response = await starWarsFetch.consultarInfoMovie(planet);
 
-        console.log(response);
         return response;
       })
 
-    //   const results2= objeto.fetchMoreData(planets)
-
       const results= await Promise.all(promises);
-      console.log(results);
+
 
       resultDiv.innerHTML+= `<h1> PLANETAS </h1><br>`
       results.forEach(({name,terrain,gravity,diameter,population}) => {
@@ -65,21 +57,17 @@ class Interfaz{
             `;
       });
 
-      /*********************CHARACTERSSSSS */
+      /*********************CHARACTERS */
       const promises2 = characters.map( async (character) => {
         const response = await starWarsFetch.consultarInfoMovie(character);
 
-        console.log(response);
         return response;
       })
 
-    //   const results2= objeto.fetchMoreData(planets)
-
       const results2= await Promise.all(promises2);
-      console.log(results2);
 
 
-      resultDiv.innerHTML+= `<h1> Charactersss </h1><br>`
+      resultDiv.innerHTML+= `<h1> Characters </h1><br>`
       results2.forEach(async ({name,gender,hair_color,skin_color,eye_color,height,homeworld}) => {
 
 
@@ -99,18 +87,14 @@ class Interfaz{
             `;
       });
 
-      /*********************STARSHIPSSSSS */
+      /*********************STARSHIPS */
       const promises3 = starships.map( async (starship) => {
         const response = await starWarsFetch.consultarInfoMovie(starship);
 
-        console.log(response);
         return response;
       })
 
-    //   const results2= objeto.fetchMoreData(planets)
-
       const results3= await Promise.all(promises3);
-      console.log(results3);
 
       resultDiv.innerHTML+= `<h1> starships </h1><br>`
       results3.forEach(({name,model,manufacturer,passengers}) => {
