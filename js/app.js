@@ -19,15 +19,4 @@ formulario.addEventListener('submit', (e) => {
       console.log(err);
     })
 
-
-  // starWarsFetch.obtenerPlanetsAPI()
-  //   .then((data) => {
-  //     // ui.mostrarResultado(data.movies);  
-  //     console.log(data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-
-
 })
