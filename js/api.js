@@ -11,15 +11,19 @@ class API {
       const urlObtenerMovies= await fetch(url);
 
       const movies = await urlObtenerMovies.json();
+
       return {movies};
   }
 
-  async obtenerValores(URL){
-      
-      const urlFetch= await fetch(URL);
 
-      const resultado = await urlFetch.json();
+  async consultarInfoMovie(url){
+ 
+    const urlData= await fetch(url);
 
-      return {resultado}
-  }
+    const data = await urlData.json();
+
+    return data
+     
+    }
+
 }

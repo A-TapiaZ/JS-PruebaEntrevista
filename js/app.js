@@ -13,12 +13,21 @@ formulario.addEventListener('submit', (e) => {
 
   starWarsFetch.obtenerMoviesAPI(movieNumberSelect)
     .then((data) => {
-      ui.mostrarResultado(data.movies);  
-      console.log(data.movies);
+      ui.mostrarResultado(data.movies);       
     })
     .catch((err) => {
       console.log(err);
-    }
-    )
+    })
+
+
+  // starWarsFetch.obtenerPlanetsAPI()
+  //   .then((data) => {
+  //     // ui.mostrarResultado(data.movies);  
+  //     console.log(data);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+
 
 })

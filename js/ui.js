@@ -1,3 +1,8 @@
+
+const objeto = new Results();
+
+
+
 class Interfaz{
 
   mostrarMensaje(mensaje,clases){
@@ -19,26 +24,107 @@ class Interfaz{
   }
 
 
-  mostrarResultado(data){
+  async mostrarResultado(data){
 
       const resultadoAnterior= document.querySelector('#resultado > div')
       if (resultadoAnterior) {
           resultadoAnterior.remove();
       }
-            
-  
-      let templateHTML=`
-          <div class="card bg-warning">    
-              <div class="card-body text light">
-                  <h2 class="card-tittle">Resultado</h2>
-                  <p> Pelicula ${JSON.stringify(data.title)} 
-                  <p> Planetas ${JSON.stringify(data.planets)} 
-                  <p> Actores ${JSON.stringify(data.characters)} 
-                  <p> Naves estelares ${JSON.stringify(data.starships)} 
-      </div>
-      `;
+        
+      const {title,planets,characters,starships}=data;
+      console.log(data);
+      
+      const resultDiv=document.querySelector('#resultado');
+      
+      
+      /**NOMBRE PELICULAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */
+        resultDiv.innerHTML+= `<h1> NOMBRE PELICULA: ${title} </h1><br>`
 
 
-      document.querySelector('#resultado').innerHTML=templateHTML;
+      /*********************PLANETASSSSSSSSSSSSSSSSSSSSSSS */
+      const promises = planets.map( async (planet) => {
+        const response = await starWarsFetch.consultarInfoMovie(planet);
+
+        console.log(response);
+        return response;
+      })
+
+    //   const results2= objeto.fetchMoreData(planets)
+
+      const results= await Promise.all(promises);
+      console.log(results);
+
+      resultDiv.innerHTML+= `<h1> PLANETAS </h1><br>`
+      results.forEach(({name,terrain,gravity,diameter,population}) => {
+          resultDiv.innerHTML+= `
+            <p> Nombre: ${name} </p>
+            <p> Terreno: ${terrain} </p>
+            <p> Gravedad: ${gravity} </p>
+            <p> Diametro: ${diameter} </p>
+            <p> Poblacion: ${population} </p><br>
+            `;
+      });
+
+      /*********************CHARACTERSSSSS */
+      const promises2 = characters.map( async (character) => {
+        const response = await starWarsFetch.consultarInfoMovie(character);
+
+        console.log(response);
+        return response;
+      })
+
+    //   const results2= objeto.fetchMoreData(planets)
+
+      const results2= await Promise.all(promises2);
+      console.log(results2);
+
+
+      resultDiv.innerHTML+= `<h1> Charactersss </h1><br>`
+      results2.forEach(async ({name,gender,hair_color,skin_color,eye_color,height,homeworld}) => {
+
+
+        const provincia =await starWarsFetch.consultarInfoMovie(homeworld)
+        .then((result) => {
+            return result
+        })
+
+          resultDiv.innerHTML+= `
+            <p> name: ${name} </p>
+            <p> gender: ${gender} </p>
+            <p> hair_color: ${hair_color} </p>
+            <p> skin_color: ${skin_color} </p>
+            <p> eye_color: ${eye_color} </p>
+            <p> height: ${height} </p>
+            <p> homeworld: ${JSON.stringify(provincia.name)} </p><br>
+            `;
+      });
+
+      /*********************STARSHIPSSSSS */
+      const promises3 = starships.map( async (starship) => {
+        const response = await starWarsFetch.consultarInfoMovie(starship);
+
+        console.log(response);
+        return response;
+      })
+
+    //   const results2= objeto.fetchMoreData(planets)
+
+      const results3= await Promise.all(promises3);
+      console.log(results3);
+
+      resultDiv.innerHTML+= `<h1> starships </h1><br>`
+      results3.forEach(({name,model,manufacturer,passengers}) => {
+          resultDiv.innerHTML+= `
+            <p> Nombre: ${name} </p>
+            <p> model: ${model} </p>
+            <p> manufacturer: ${manufacturer} </p>
+            <p> passengers: ${passengers} </p><br>
+            `;
+      });
+
+
+
+
+
   }
 }
